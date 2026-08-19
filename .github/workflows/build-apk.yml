@@ -3,6 +3,8 @@ name: Build BYD Assistant APK
 on:
   push:
     branches: ["byd-assistant-prototype"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
