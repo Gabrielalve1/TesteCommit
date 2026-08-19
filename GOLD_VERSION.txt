@@ -1,0 +1,3 @@
+BYD Luna Gold 0.2
+Direct microphone capture with Vosk pt-BR.
+NVIDIA Nemotron conversation backend.
