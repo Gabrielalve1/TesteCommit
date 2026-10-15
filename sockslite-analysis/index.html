@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>SocksLite Pro — Central de Análise</title>
+<style>
+:root{color-scheme:dark;--bg:#090e1b;--panel:#111a2d;--panel2:#17233b;--line:#283650;--text:#edf3ff;--muted:#9baac5;--cyan:#67e8f9;--green:#86efac;--amber:#fcd34d;--red:#fda4af}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#16284a 0,transparent 45%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--cyan)}.wrap{max-width:1100px;margin:auto;padding:26px 18px 60px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.brand{font-weight:800;letter-spacing:.04em}.tag{border:1px solid #326078;color:var(--cyan);border-radius:999px;padding:5px 11px;font-size:12px}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:28px 0 12px;letter-spacing:-.04em}.lead{color:var(--muted);max-width:760px;margin:0 0 26px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:linear-gradient(145deg,var(--panel),#0e1627);border:1px solid var(--line);border-radius:17px;padding:18px;min-width:0}.metric{font-size:25px;font-weight:800;overflow-wrap:anywhere}.label{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.section{margin-top:18px}.section h2{font-size:20px;margin:0 0 12px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 14px}.tabs button,.btn{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--panel);color:var(--text);font:inherit;cursor:pointer}.tabs button.active,.btn.primary{background:#12344b;border-color:#28718a;color:#d9fbff}.panel{display:none}.panel.active{display:block}.list{display:grid;gap:9px}.row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.muted{color:var(--muted)}.pill{white-space:nowrap;border-radius:7px;padding:3px 8px;background:#25314a;color:#d5e3ff;font-size:12px}.pill.warn{background:#49391b;color:var(--amber)}.pill.ok{background:#173d31;color:var(--green)}.callout{padding:15px 16px;border:1px solid #6a5425;background:#282215;border-radius:12px;color:#ffe7a4;margin-top:16px}.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;overflow-wrap:anywhere}.search{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#080d18;color:var(--text);font:inherit;margin-bottom:12px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.small{font-size:13px}.footer{margin-top:26px;color:var(--muted);font-size:13px}.check{display:grid;grid-template-columns:20px 1fr;gap:10px;margin:12px 0}.check input{accent-color:#67e8f9;margin-top:5px}.progress{height:8px;background:#25314a;border-radius:20px;overflow:hidden;margin:14px 0}.progress div{height:100%;width:30%;background:linear-gradient(90deg,#22d3ee,#86efac)}@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.row{align-items:flex-start;flex-direction:column}.wrap{padding:18px 13px 40px}}@media(max-width:390px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<div class="top"><div class="brand">◈ SOCKSLITE / LAB</div><span class="tag">RELATÓRIO ESTÁTICO · V50</span></div>
+<h1>Central de análise</h1>
+<p class="lead">Painel navegável da inspeção inicial do pacote enviado. Reúne metadados, permissões, indicadores técnicos e tarefas de verificação — sem afirmar que o código foi totalmente descompilado.</p>
+<div class="grid">
+<div class="card"><div class="label">Versão</div><div class="metric">50</div><div class="muted small">version code 50</div></div>
+<div class="card"><div class="label">Pacote</div><div class="metric code">com.sockslitepro.net</div><div class="muted small">Android / VPN</div></div>
+<div class="card"><div class="label">Tamanho XAPK</div><div class="metric">91,7 MB</div><div class="muted small">91.723.623 bytes</div></div>
+<div class="card"><div class="label">Arquivos DEX</div><div class="metric">9</div><div class="muted small">no APK principal</div></div>
+</div>
+<div class="card section"><div class="label">SHA-256 do arquivo analisado</div><div class="code" id="sha">85a3419168d9cd18fa6eafd79fcb86c0f5caf00d8dac6e45dc70c5d5710b4b49</div><div class="actions"><button class="btn primary" id="copy">Copiar SHA-256</button><a class="btn" href="INITIAL_STATIC_REPORT.md">Abrir relatório completo</a><a class="btn" href="README.md">Instruções do projeto</a></div></div>
+<div class="tabs" role="tablist"><button class="active" data-tab="overview">Resumo</button><button data-tab="permissions">Permissões</button><button data-tab="indicators">Indicadores</button><button data-tab="plan">Próximas etapas</button></div>
+<section id="overview" class="panel active">
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+<div class="card"><h2>O que os indícios apontam</h2><p>Referências a serviços VPN, classes com nomes relacionados a túnel SSH e comandos CONNECT / DISCONNECT / RECONNECT. Isso é compatível com as funções gerais anunciadas pelo app.</p><span class="pill ok">Indícios estáticos</span></div>
+<div class="card"><h2>O que ainda não está confirmado</h2><p>Fluxo completo de conexão, servidores, protocolo implementado, chamadas de rede em execução e comportamento real. Strings encontradas não provam que um endpoint seja chamado.</p><span class="pill warn">Requer validação</span></div>
+<div class="card"><h2>Componentes do XAPK</h2><p>APK principal, split arm64-v8a, idioma inglês, recursos mdpi, manifesto do XAPK e ícone. O XAPK não é um aplicativo web instalável.</p><span class="pill">6 entradas principais</span></div>
+</div>
+<div class="callout"><strong>Limite importante:</strong> esta página é um painel de análise, não um cliente VPN funcional. Para conectar túneis reais, um app independente precisa de implementação própria, servidores autorizados e configuração de rede.</div>
+</section>
+<section id="permissions" class="panel">
+<h2>Permissões declaradas</h2><p class="muted">Filtre a lista. A permissão declarada não significa, sozinha, que haja uso abusivo.</p><input class="search" id="permSearch" placeholder="Buscar permissão…">
+<div class="card list" id="permList"></div>
+</section>
+<section id="indicators" class="panel">
+<h2>Indicadores extraídos de metadados e strings</h2>
+<div class="card list">
+<div class="row"><span>com.sockslitepro.net.service.SocksVpnService</span><span class="pill">Nome de classe</span></div>
+<div class="row"><span>com.sockslitepro.net.service.NetSpeedService</span><span class="pill">Nome de classe</span></div>
+<div class="row"><span>com.sockslitepro.net.service.tunnel.vpn.TProxyService</span><span class="pill">Nome de classe</span></div>
+<div class="row"><span>com.trilead.ssh2</span><span class="pill">Referência SSH</span></div>
+<div class="row"><span>https://locale.sockslite.com/geoip</span><span class="pill warn">URL candidata</span></div>
+<div class="row"><span>https://metrics.sockslite.com</span><span class="pill warn">URL candidata</span></div>
+</div>
+<p class="muted small">Os nomes e URLs devem ser confirmados no código descompilado. SDKs de anúncios e métricas podem incluir URLs de terceiros.</p>
+</section>
+<section id="plan" class="panel">
+<h2>Checklist de execução</h2><p class="muted">O progresso fica salvo localmente neste navegador.</p><div class="progress"><div id="progressBar"></div></div><div id="progressText" class="muted small"></div>
+<div class="card" id="checks">
+<label class="check"><input type="checkbox" data-id="1"><span><strong>Metadados e hash</strong><br><span class="muted small">Conferir versão, componentes e identidade do arquivo.</span></span></label>
+<label class="check"><input type="checkbox" data-id="2"><span><strong>Descompilar com JADX</strong><br><span class="muted small">Gerar fontes legíveis do APK base em ambiente isolado.</span></span></label>
+<label class="check"><input type="checkbox" data-id="3"><span><strong>Decodificar AndroidManifest.xml</strong><br><span class="muted small">Confirmar activities, services, receivers e providers.</span></span></label>
+<label class="check"><input type="checkbox" data-id="4"><span><strong>Mapear chamadas de rede</strong><br><span class="muted small">Separar código próprio das bibliotecas de terceiros.</span></span></label>
+<label class="check"><input type="checkbox" data-id="5"><span><strong>Teste dinâmico autorizado</strong><br><span class="muted small">Usar emulador e dados de teste; não usar credenciais reais.</span></span></label>
+</div>
+<div class="actions"><button class="btn" id="reset">Zerar checklist</button><a class="btn primary" href="ANALYSIS_PLAN.md">Abrir plano técnico</a></div>
+</section>
+<div class="footer">Projeto independente para documentação técnica. Não distribui o APK nem contém credenciais. Nenhuma conclusão de segurança é garantida. <br>Repositório: <a href="https://github.com/Gabrielalve1/TesteCommit/tree/sockslite-analysis-kit/sockslite-analysis">GitHub · sockslite-analysis</a></div>
+</main>
+<script>
+const permissions = [
+"android.permission.INTERNET","android.permission.ACCESS_NETWORK_STATE","android.permission.ACCESS_WIFI_STATE","android.permission.READ_PHONE_STATE","android.permission.POST_NOTIFICATIONS","android.permission.VIBRATE","android.permission.WRITE_EXTERNAL_STORAGE","android.permission.READ_EXTERNAL_STORAGE","android.permission.FOREGROUND_SERVICE","android.permission.FOREGROUND_SERVICE_SPECIAL_USE","android.permission.WAKE_LOCK","android.permission.POWER_SERVICE","android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS","android.permission.REQUEST_DELETE_PACKAGES","com.google.android.gms.permission.AD_ID","android.permission.USE_BIOMETRIC","android.permission.USE_FINGERPRINT","com.google.android.c2dm.permission.RECEIVE","com.android.vending.BILLING","com.android.vending.CHECK_LICENSE","com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE","android.permission.ACCESS_ADSERVICES_ATTRIBUTION","android.permission.ACCESS_ADSERVICES_AD_ID","android.permission.ACCESS_ADSERVICES_TOPICS","com.sockslitepro.net.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION","com.amazon.privacypass.ATTEST"
+];
+function renderPerms(){const q=(document.getElementById('permSearch').value||'').toLowerCase();const el=document.getElementById('permList');const filtered=permissions.filter(x=>x.toLowerCase().includes(q));el.innerHTML=filtered.map(x=>'<div class="row"><span class="code">'+x+'</span><span class="pill">Declarada</span></div>').join('')||'<p class="muted">Nenhum resultado.</p>'}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))}));
+document.getElementById('permSearch').addEventListener('input',renderPerms);renderPerms();
+document.getElementById('copy').addEventListener('click',async()=>{const s=document.getElementById('sha').textContent;try{await navigator.clipboard.writeText(s);document.getElementById('copy').textContent='Copiado!'}catch(e){window.prompt('Copie o SHA-256:',s)}});
+const boxes=[...document.querySelectorAll('#checks input')];function updateChecks(){let n=0;boxes.forEach(b=>{b.checked=localStorage.getItem('sockslite-check-'+b.dataset.id)==='1';if(b.checked)n++});document.getElementById('progressBar').style.width=(n/boxes.length*100)+'%';document.getElementById('progressText').textContent=n+' de '+boxes.length+' etapas concluídas';}
+boxes.forEach(b=>b.addEventListener('change',()=>{localStorage.setItem('sockslite-check-'+b.dataset.id,b.checked?'1':'0');updateChecks()}));document.getElementById('reset').addEventListener('click',()=>{boxes.forEach(b=>localStorage.removeItem('sockslite-check-'+b.dataset.id));updateChecks()});updateChecks();
+</script></body></html>
