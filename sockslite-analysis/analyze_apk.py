@@ -4,8 +4,8 @@ import argparse, hashlib, json, os, re, shutil, subprocess, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-URL_RE = re.compile(r"(?i)\\b(?:https?://|wss?://)[A-Za-z0-9._~:/?#\\[\\]@!$&'()*+,;=%-]+")
-DOMAIN_RE = re.compile(r"(?i)\\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+(?:com|net|org|io|app|dev|co|br|info|xyz|cloud|me|gg|tv|site|online)\\b")
+URL_RE = re.compile(r"(?i)\b(?:https?://|wss?://)[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]+")
+DOMAIN_RE = re.compile(r"(?i)\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|net|org|io|app|dev|co|br|info|xyz|cloud|me|gg|tv|site|online)\b")
 PERM_RE = re.compile(r'android:name="([^"]+)"')
 TERMS = ["okhttp", "retrofit", "ktor", "volley", "websocket", "socket", "ssh", "tls", "ssl", "vpnservice", "proxy", "wireguard", "openvpn", "trustmanager", "certificatepinning", "javax.net.ssl"]
 
@@ -29,7 +29,7 @@ def sha256(path):
     return h.hexdigest()
 
 def listing(items):
-    return "\\n".join("- " + str(x) for x in items) or "- Nenhum resultado encontrado automaticamente."
+    return "\n".join("- " + str(x) for x in items) or "- Nenhum resultado encontrado automaticamente."
 
 def main():
     ap = argparse.ArgumentParser(description="Triagem estática de APK")
