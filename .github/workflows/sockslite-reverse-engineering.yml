@@ -28,7 +28,7 @@ jobs:
           u = urllib.parse.urlparse(os.environ["SAMPLE_URL"])
           if u.scheme != "https" or not u.netloc:
               raise SystemExit("Provide a direct HTTPS download URL.")
-          print("URL scheme/host validated; query strings and credentials are not logged.")
+          print("URL scheme/host validated; URL itself is not printed.")
           PY
           mkdir -p work/input work/output
           curl --fail --location --silent --show-error \
@@ -56,13 +56,11 @@ jobs:
           )
           with urllib.request.urlopen(req, timeout=30) as r:
               release = json.load(r)
-          assets = release.get("assets", [])
-          candidates = [a for a in assets if a["name"].endswith(".zip") and a["name"].startswith("jadx-")]
-          if not candidates:
+          assets = [a for a in release.get("assets", []) if a["name"].endswith(".zip") and a["name"].startswith("jadx-")]
+          if not assets:
               raise SystemExit("Could not find an official JADX ZIP release asset.")
-          asset = candidates[0]
           print("JADX release:", release.get("tag_name"))
-          urllib.request.urlretrieve(asset["browser_download_url"], "/tmp/jadx.zip")
+          urllib.request.urlretrieve(assets[0]["browser_download_url"], "/tmp/jadx.zip")
           PY
           mkdir -p /tmp/jadx
           unzip -q /tmp/jadx.zip -d /tmp/jadx
@@ -72,35 +70,45 @@ jobs:
           echo "JADXBIN=$JADXBIN" >> "$GITHUB_ENV"
           "$JADXBIN" --version
 
-      - name: Extract package and decompile
+      - name: Extract and decompile all APK splits
         run: |
           mkdir -p work/input/extracted work/output
           unzip -q work/input/sample.bin -d work/input/extracted
-          find work/input/extracted -type f \( -name '*.apk' -o -name '*.dex' \) -print
           mapfile -t APKS < <(find work/input/extracted -type f -name '*.apk' | sort)
           if [ "${#APKS[@]}" -eq 0 ]; then
             echo "No APKs found inside the downloaded archive."
             exit 1
           fi
+          printf '%s\n' "${APKS[@]}" > work/output/APK_FILES.txt
           for apk in "${APKS[@]}"; do
             name="$(basename "$apk" .apk)"
             mkdir -p "work/output/$name"
             "$JADXBIN" --deobf --show-bad-code -j 2 \
               -d "work/output/$name" "$apk" \
-              >"work/output/$name/jadx.log" 2>&1 || {
-                echo "JADX reported errors for $name; preserving partial output."
-              }
+              >"work/output/$name/jadx.log" 2>&1 || echo "JADX reported errors for $name; preserving partial output."
           done
           sha256sum work/input/sample.bin > work/output/SAMPLE_SHA256.txt
+          find work/input/extracted -type f -name '*.so' -print > work/output/NATIVE_LIBRARIES.txt
           {
-            echo "# Automated static analysis run"
+            echo "# Evidence summary (static analysis)"
             echo
             echo "- Commit: ${GITHUB_SHA}"
             echo "- Run ID: ${GITHUB_RUN_ID}"
             echo "- Sample SHA-256: $(cut -d' ' -f1 work/output/SAMPLE_SHA256.txt)"
             echo
-            echo "This is static decompilation only. It does not prove runtime behavior, identify a working server, or validate a VPN connection."
-            echo "Review the manifest, VPN service classes, native libraries, tunnel protocol code, and configuration import/export paths."
+            echo "## APK splits"
+            cat work/output/APK_FILES.txt
+            echo
+            echo "## VPN, proxy, SSH and tunnel code references"
+            grep -RniE --include='*.java' --include='*.xml' --include='*.txt' \
+              'VpnService|SocksVpnService|TProxyService|WireGuard|OpenVPN|SSH|Proxy|CONNECT|DISCONNECT|RECONNECT|tun[0-9]?|libtun|obfs|payload|serverHost|serverPort|import.*config|export.*config' \
+              work/output/ > work/output/INDICATORS.txt || true
+            echo "See INDICATORS.txt; hits are leads, not proof of runtime behavior."
+            echo
+            echo "## Native libraries"
+            cat work/output/NATIVE_LIBRARIES.txt
+            echo
+            echo "Static decompilation does not prove the app connects, reveal valid private credentials, or validate a VPN session."
           } > work/output/README-RESULTS.md
 
       - name: Upload decompilation results
