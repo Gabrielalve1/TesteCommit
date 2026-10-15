@@ -1,31 +1,44 @@
-# SocksLite Pro — workspace de análise estática
+# SocksLite Pro — análise estática
 
-Este diretório prepara um fluxo reproduzível para examinar um APK obtido legalmente e com autorização para análise. O objetivo é documentar evidências técnicas e orientar uma implementação independente — não contornar autenticação, obter credenciais ou acessar servidores sem autorização.
+Este workspace documenta uma inspeção estática inicial do XAPK versão 50 fornecido pelo usuário. Ele inclui um painel HTML navegável, relatório técnico, plano de análise e script de triagem.
 
-## Estado atual
-- [x] Workspace e roteiro de análise criados no GitHub.
-- [x] Script de triagem estática incluído.
-- [ ] APK obtido e hash registrado.
-- [ ] JADX/apktool executados sobre a amostra.
-- [ ] Evidências verificadas e relatório preenchido.
-- [ ] Testes dinâmicos autorizados, se necessários.
+## Acessar o painel
 
-**Transparência:** ainda não foi feita uma descompilação real do SocksLite Pro, pois nenhum APK foi disponibilizado neste ambiente. Nenhuma conclusão sobre classes, endpoints ou implementação interna está confirmada.
+Após habilitar GitHub Pages com a fonte **GitHub Actions** e concluir o deploy, o painel estará disponível em:
 
-## Ferramentas
-- Java 17+
-- JADX (jadx)
-- Apktool (opcional)
-- Python 3.10+
+https://gabrielalve1.github.io/TesteCommit/
 
-## Executar
-Linux/macOS: python3 analyze_apk.py /caminho/aplicativo.apk --out ./out
+Se o repositório usar um domínio personalizado ou configurações diferentes, consulte Settings → Pages e a URL informada pelo workflow.
 
-Windows PowerShell: py .\analyze_apk.py C:\caminho\aplicativo.apk --out .\out
+## O que já foi feito
 
-O script gera REPORT.md, results.json, logs e a saída do JADX. URLs e nomes encontrados são apenas candidatos e precisam ser revisados manualmente.
+- [x] XAPK recebido e estrutura do contêiner inspecionada.
+- [x] SHA-256 calculado e registrado no relatório.
+- [x] Manifesto do contêiner, splits e permissões listados.
+- [x] Strings indicativas e nomes de classes registrados como pistas, não como prova de comportamento.
+- [x] Dashboard HTML com busca de permissões, abas e checklist salvo localmente.
+- [x] Workflow de deploy GitHub Pages preparado.
+- [ ] Descompilação completa via JADX.
+- [ ] Análise de fluxo de rede e validação das referências.
+- [ ] Testes dinâmicos autorizados em sandbox.
 
-## Escopo responsável
-Inclui manifesto, permissões, bibliotecas, classes, strings e documentação de fluxos observáveis. Não inclui extração de segredos, bypass de autenticação/certificate pinning ou sondagem de infraestrutura de terceiros. Para testes dinâmicos, use ambiente controlado e serviços próprios ou autorizados.
+## Relatórios
 
-Consulte ANALYSIS_PLAN.md e REPORT_TEMPLATE.md.
+- `INITIAL_STATIC_REPORT.md` — achados e limitações.
+- `ANALYSIS_PLAN.md` — plano de trabalho.
+- `REPORT_TEMPLATE.md` — modelo para evidências.
+- `analyze_apk.py` — script de triagem para uso local.
+
+## Executar a triagem local
+
+Requisitos: Python 3.10+, Java 17+ e JADX instalado.
+
+```bash
+python3 analyze_apk.py /caminho/para/aplicativo.apk --out ./out
+```
+
+O script de triagem não substitui revisão manual ou execução controlada. Para esta amostra, a estrutura do XAPK foi inspecionada, mas a descompilação legível com JADX ainda não foi concluída neste ambiente.
+
+## Limites
+
+Este projeto **não é um clone funcional do SocksLite Pro nem um cliente VPN**. Uma VPN utilizável requer implementação própria, servidores autorizados e configuração operacional. A análise não contorna autenticação, não extrai credenciais e não tenta acessar infraestrutura privada.
